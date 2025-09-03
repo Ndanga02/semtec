@@ -1,0 +1,349 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* Semtex Brand Colors */
+    --bg: 11 15 20; /* #0B0F14 */
+    --panel: 15 20 26; /* #0F141A */
+    --ink: 246 247 251; /* #F6F7FB */
+    --muted-ink: 199 206 217; /* #C7CED9 */
+    --hairline: 27 34 43; /* #1B222B */
+    --focus-ring: 191 201 255; /* #BFC9FF */
+
+    /* shadcn/ui variables mapped to Semtex colors */
+    --background: var(--bg);
+    --foreground: var(--ink);
+    --card: var(--panel);
+    --card-foreground: var(--ink);
+    --popover: var(--panel);
+    --popover-foreground: var(--ink);
+    --primary: var(--ink);
+    --primary-foreground: var(--bg);
+    --secondary: var(--hairline);
+    --secondary-foreground: var(--ink);
+    --muted: var(--hairline);
+    --muted-foreground: var(--muted-ink);
+    --accent: var(--hairline);
+    --accent-foreground: var(--ink);
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: var(--ink);
+    --border: var(--hairline);
+    --input: var(--hairline);
+    --ring: var(--focus-ring);
+    --radius: 1rem;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  
+  body {
+    @apply bg-semtex-bg text-semtex-ink font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    font-variation-settings: 'opsz' 32;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Focus styles */
+  :focus {
+    @apply outline-none;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-semtex-focus;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    @apply w-1;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-semtex-bg;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-semtex-hairline rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-semtex-muted-ink;
+  }
+
+  /* Selection styles */
+  ::selection {
+    @apply bg-semtex-focus/20 text-semtex-ink;
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    ::before,
+    ::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+
+  /* High contrast mode support */
+  @media (prefers-contrast: high) {
+    :root {
+      --ink: 255 255 255;
+      --bg: 0 0 0;
+      --hairline: 128 128 128;
+    }
+  }
+}
+
+@layer components {
+  /* Container utilities */
+  .container-semtex {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-narrow {
+    @apply max-w-4xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-wide {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Grid utilities */
+  .grid-12 {
+    @apply grid grid-cols-4 gap-4 sm:grid-cols-8 lg:grid-cols-12 lg:gap-6;
+  }
+
+  /* Typography utilities - Fixed: Use direct CSS properties instead of @apply */
+  .text-display-2xl {
+    font-size: 4.5rem;
+    line-height: 1;
+    @apply font-bold tracking-tight;
+  }
+
+  .text-display-xl {
+    font-size: 3.75rem;
+    line-height: 1;
+    @apply font-bold tracking-tight;
+  }
+
+  .text-display-lg {
+    font-size: 3rem;
+    line-height: 1;
+    @apply font-bold tracking-tight;
+  }
+
+  .text-display-md {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    @apply font-semibold tracking-tight;
+  }
+
+  .text-display-sm {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+    @apply font-semibold tracking-tight;
+  }
+
+  .text-display-xs {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    @apply font-semibold;
+  }
+
+  .text-body-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+    @apply text-semtex-muted-ink;
+  }
+
+  .text-body {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    @apply text-semtex-muted-ink;
+  }
+
+  .text-body-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    @apply text-semtex-muted-ink;
+  }
+
+  /* Button base styles */
+  .btn-base {
+    @apply inline-flex items-center justify-center rounded-2xl text-sm font-medium transition-colors;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-semtex-focus;
+    @apply disabled:pointer-events-none disabled:opacity-50;
+  }
+
+  .btn-primary {
+    @apply btn-base bg-semtex-ink text-semtex-bg hover:bg-semtex-muted-ink;
+    @apply h-10 px-4 py-2;
+  }
+
+  .btn-secondary {
+    @apply btn-base border border-semtex-hairline bg-transparent hover:bg-semtex-hairline;
+    @apply h-10 px-4 py-2;
+  }
+
+  .btn-ghost {
+    @apply btn-base hover:bg-semtex-hairline/50;
+    @apply h-10 px-4 py-2;
+  }
+
+  /* Card styles */
+  .card-base {
+    @apply rounded-2xl border border-semtex-hairline bg-semtex-panel/50 backdrop-blur-sm;
+    @apply shadow-soft;
+  }
+
+  .card-hover {
+    @apply card-base transition-all duration-300;
+    @apply hover:border-semtex-muted-ink/20 hover:shadow-soft-lg hover:-translate-y-1;
+  }
+
+  /* Form styles */
+  .input-base {
+    @apply flex h-10 w-full rounded-xl border border-semtex-hairline;
+    @apply bg-semtex-panel/50 px-3 py-2 text-sm;
+    @apply placeholder:text-semtex-muted-ink/60;
+    @apply focus:outline-none focus:ring-2 focus:ring-semtex-focus focus:border-transparent;
+    @apply disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  /* Animation utilities */
+  .animate-fade-in {
+    animation: fade-in 0.5s ease-out;
+  }
+
+  .animate-slide-up {
+    animation: slide-up 0.3s ease-out;
+  }
+
+  .animate-slide-down {
+    animation: slide-down 0.2s ease-out;
+  }
+
+  /* Gradient utilities */
+  .gradient-bg {
+    background: linear-gradient(135deg, hsl(var(--bg)) 0%, hsl(var(--panel)) 100%);
+  }
+
+  .gradient-text {
+    background: linear-gradient(135deg, hsl(var(--ink)) 0%, hsl(var(--muted-ink)) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  /* Focus ring utilities */
+  .focus-ring {
+    @apply focus:outline-none focus-visible:ring-2 focus-visible:ring-semtex-focus focus-visible:ring-offset-2 focus-visible:ring-offset-semtex-bg;
+  }
+
+  /* Glass effect with light theme */
+  .glass {
+    @apply bg-white/80 backdrop-blur-xl border border-black/5;
+    background: linear-gradient(
+      135deg,
+      rgba(255, 255, 255, 0.9) 0%,
+      rgba(255, 255, 255, 0.7) 100%
+    );
+  }
+
+  /* Subtle shadow effects */
+  .shadow-elegant {
+    box-shadow: 
+      0 1px 3px rgba(0, 0, 0, 0.05),
+      0 4px 16px rgba(0, 0, 0, 0.04);
+  }
+
+  .shadow-elegant-hover {
+    box-shadow: 
+      0 4px 12px rgba(0, 0, 0, 0.08),
+      0 8px 32px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Premium card with light theme */
+  .card-premium {
+    @apply relative overflow-hidden bg-white;
+    box-shadow: 
+      0 1px 3px rgba(0, 0, 0, 0.05),
+      0 0 0 1px rgba(0, 0, 0, 0.03);
+    backdrop-filter: blur(20px);
+  }
+
+  .card-premium::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(0, 122, 255, 0.2),
+      transparent
+    );
+  }
+
+  .card-premium:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+      0 8px 30px rgba(0, 0, 0, 0.08),
+      0 0 0 1px rgba(0, 122, 255, 0.1);
+  }
+
+  /* Light theme animations */
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+  }
+
+  .animate-pulse-subtle {
+    animation: pulse-subtle 3s ease-in-out infinite alternate;
+  }
+
+  @keyframes pulse-subtle {
+    from { opacity: 0.8; }
+    to { opacity: 1; }
+  }
+
+  /* Loading states */
+  .skeleton {
+    @apply animate-pulse bg-semtex-hairline rounded;
+  }
+
+  /* Divider */
+  .divider {
+    @apply h-px bg-gradient-to-r from-transparent via-semtex-hairline to-transparent;
+  }
+}
+
+/* Define keyframe animations */
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slide-up {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slide-down {
+  from { transform: translateY(-20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}

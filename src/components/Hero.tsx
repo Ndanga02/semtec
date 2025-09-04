@@ -56,7 +56,7 @@ const Hero = ({
             >
               
               {/* Headline */}
-              <h1 className="text-display-xl lg:text-display-2xl gradient-text">
+              <h1 className="text-display-xl lg:text-display-2xl text-semtex-blue">
                 {headline}
               </h1>
 

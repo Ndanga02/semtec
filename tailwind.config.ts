@@ -60,6 +60,7 @@ const config: Config = {
         'semtex-muted-ink': '#C7CED9',
         'semtex-hairline': '#1B222B',
         'semtex-focus': '#BFC9FF',
+        'semtex-blue': '#f0f0f0',
       },
       borderRadius: {
         lg: 'var(--radius)',

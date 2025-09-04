@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 import { cn } from '@/lib/cn'
 import { useAnalytics } from '@/lib/analytics'
-import MegaMenu from './MegaMenu.tsx'
-import MobileNav from './MobileNav.tsx'
+import MegaMenu from './MegaMenu'
+import MobileNav from './MobileNav'
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false)

@@ -4,19 +4,19 @@ import { cn } from '@/lib/cn'
 
 interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label?: string
-  error?: FieldError
+  error?: FieldError | undefined;
   helpText?: string
 }
 
 interface TextAreaProps extends React.TextareaHTMLAttributes<HTMLTextAreaElement> {
   label?: string
-  error?: FieldError
+  error?: FieldError | undefined;
   helpText?: string
 }
 
 interface SelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> {
   label?: string
-  error?: FieldError
+  error?: FieldError | undefined;
   helpText?: string
   options: Array<{ value: string; label: string }>
 }
@@ -196,7 +196,7 @@ Select.displayName = 'Select'
 // Checkbox Field
 interface CheckboxProps extends React.InputHTMLAttributes<HTMLInputElement> {
   label: string
-  error?: FieldError
+  error?: FieldError | undefined
   helpText?: string
 }
 

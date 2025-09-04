@@ -73,19 +73,22 @@ const Contact = () => {
       console.log('Contact form submission:', data)
       contactSubmit(data.interest)
       
-      addToast(toast.success(
-        'Message sent successfully!',
-        'We\'ll get back to you within 24 hours.'
-      ))
-      
+  addToast({
+  ...toast.success(
+    'Message sent successfully!',
+    'We\'ll get back to you within 24 hours.'
+  ),
+  description: 'We\'ll get back to you within 24 hours.' 
+})
       setIsSubmitted(true)
       reset()
     } catch (error) {
       console.error('Contact form submission failed:', error)
-      addToast(toast.error(
-        'Failed to send message',
-        'Please try again or contact us directly at hello@semtex.co.za'
-      ))
+      addToast({
+        type: 'error',
+        title: 'Failed to send message',
+        description: 'Please try again or contact us directly at hello@semtex.co.za'
+      })
     }
   }
 

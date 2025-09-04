@@ -23,6 +23,7 @@ import { useSEO } from '@/lib/seo'
 import { useAnalytics } from '@/lib/analytics'
 import Section from '@/components/Section'
 import Card from '@/components/Card'
+import { cn } from '@/lib/cn'
 
 const Careers = () => {
   const [selectedDepartment, setSelectedDepartment] = useState<string | null>(null)
@@ -370,12 +371,11 @@ const Careers = () => {
             <button
               key={dept}
               onClick={() => setSelectedDepartment(dept)}
-              className={cn(
-                'px-4 py-2 rounded-full text-sm font-medium transition-colors',
+              className={
                 selectedDepartment === dept
-                  ? 'bg-semtex-focus text-semtex-bg'
-                  : 'bg-semtex-hairline/30 text-semtex-muted-ink hover:text-semtex-ink'
-              )}
+                  ? 'px-4 py-2 rounded-full text-sm font-medium bg-semtex-focus text-semtex-bg'
+                  : 'px-4 py-2 rounded-full text-sm font-medium bg-semtex-hairline/30 text-semtex-muted-ink hover:text-semtex-ink transition-colors'
+              }
             >
               {dept}
             </button>

@@ -186,7 +186,16 @@ const Pricing = () => {
     }
   ]
 
-  const savings = billingCycle === 'annual' ? Math.round(((plans[1].price.monthly! - plans[1].price.annual!) / plans[1].price.monthly!) * 100) : 0
+  const savings =
+    billingCycle === 'annual' &&
+    plans[1] &&
+    plans[1].price &&
+    typeof plans[1].price.monthly === 'number' &&
+    typeof plans[1].price.annual === 'number'
+      ? Math.round(
+          ((plans[1].price.monthly - plans[1].price.annual) / plans[1].price.monthly) * 100
+        )
+      : 0
 
   return (
     <div className="min-h-screen pt-24 pb-16">

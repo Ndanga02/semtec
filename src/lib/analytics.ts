@@ -5,15 +5,15 @@
 
 export interface AnalyticsEvent {
   name: string;
-  properties?: Record<string, any>;
-  timestamp?: Date;
+  properties?: Record<string, any> | undefined;
+  timestamp?: Date | undefined;
 }
 
 export interface PageViewEvent {
   path: string;
   title: string;
-  referrer?: string;
-  timestamp?: Date;
+  referrer?: string | undefined;
+  timestamp?: Date | undefined;
 }
 
 class Analytics {
@@ -46,7 +46,7 @@ class Analytics {
     this.events.push(event);
     
     // Log to console in development
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.MODE === 'development') {
       console.log('Analytics Event:', event);
     }
 
@@ -70,7 +70,7 @@ class Analytics {
     this.pageViews.push(pageView);
 
     // Log to console in development
-    if (process.env.NODE_ENV === 'development') {
+    if (import.meta.env.MODE === 'development') {
       console.log('Analytics Page View:', pageView);
     }
 
@@ -172,12 +172,12 @@ class Analytics {
   }
 
   // Private methods for future implementation
-  private async sendEvent(event: AnalyticsEvent) {
+  private async _sendEvent(_event: AnalyticsEvent) {
     // TODO: Implement API call to analytics service
     // Example: await fetch('/api/analytics/event', { method: 'POST', body: JSON.stringify(event) });
   }
 
-  private async sendPageView(pageView: PageViewEvent) {
+  private async _sendPageView(_pageView: PageViewEvent) {
     // TODO: Implement API call to analytics service
     // Example: await fetch('/api/analytics/pageview', { method: 'POST', body: JSON.stringify(pageView) });
   }

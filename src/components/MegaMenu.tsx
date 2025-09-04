@@ -99,7 +99,7 @@ const MegaMenu = () => {
     }
   ]
 
-  const handleItemClick = (label: string, href: string) => {
+  const handleItemClick = (label: string, _href: string) => {
     buttonClick(`megamenu_${label.toLowerCase().replace(/\s+/g, '_')}`, 'megamenu')
   }
 

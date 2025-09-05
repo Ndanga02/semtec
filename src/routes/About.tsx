@@ -28,20 +28,29 @@ const About = () => {
 
   const founders = [
     {
-      name: 'Ndanganeni Nedzamba',
-      title: 'Co-founder & CTO',
-      education: 'BCom in Economics & Econometrics (University of Johannesburg)',
-      image: ManagementImage,
-      linkedin: 'https://linkedin.com/in/ndanganeni-nedzamba',
-      bio: 'Ndanganeni brings deep technical expertise and a passion for building scalable educational technology. His background in economics and econometrics informs his data-driven approach to product development.'
-    },
-    {
       name: 'Prince Makhesha',
       title: 'Co-founder & CEO',
       education: 'BCom in Economics + BCom Hons in Economics (University of Limpopo)',
       image: ManagementImage,
       linkedin: 'https://linkedin.com/in/prince-makhesha',
       bio: 'Prince leads Semtex with a vision to democratize access to quality learning management systems across Africa. His economics background drives the company\'s focus on sustainable growth and market expansion.'
+    },
+     {
+      name: 'Ndanganeni Nedzamba',
+      title: 'Co-founder & CTO',
+      education: 'BCom in Economics & Econometrics (University of Johannesburg)',
+      image: ManagementImage,
+      linkedin: 'https://linkedin.com/in/ndanganeni-nedzamba',
+      bio: 'Ndanganeni brings deep technical expertise and a passion for building scalable educational technology. His background in economics and econometrics informs his data-driven approach to product development.'
+    }
+    ,
+    {
+      name: 'Samuel Mokotane',
+      title: 'Co-founder & Backend Engineer',
+      education: 'Bsc in Actuarial Sciences (University of Free State)',
+      image: ManagementImage,
+      linkedin: 'https://linkedin.com/in/samuel-mokotane',
+      bio: 'Samuel is a skilled backend engineer with a strong foundation in actuarial sciences. He is dedicated to building robust and scalable systems that enhance the learning experience.'
     }
   ]
 

@@ -246,7 +246,7 @@ const About = () => {
                 <div className="flex flex-col items-center text-center">
                   
                   {/* Photo */}
-                  <div className="w-90 h-90 rounded-full overflow-hidden mb-4 border-2 border-semtex-hairline">
+                  <div className="w-90 h-90 overflow-hidden mb-4 border-2 border-semtex-hairline">
                     <img
                       src={founder.image}
                       alt={`${founder.name} - ${founder.title}`}

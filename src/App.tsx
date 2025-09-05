@@ -2,6 +2,7 @@ import { Routes, Route, useLocation } from 'react-router-dom'
 import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useAnalytics } from './lib/analytics'
+import { ToastProvider } from './components/Toast'
 
 // Layout components
 import Navbar from './components/Navbar'
@@ -23,6 +24,8 @@ import About from './routes/About'
 import Careers from './routes/Careers'
 import Blog from './routes/Blog'
 import Contact from './routes/Contact'
+import Privacy from './routes/Privacy'
+import Terms from './routes/Terms'
 
 function App() {
   const location = useLocation()
@@ -34,63 +37,67 @@ function App() {
   }, [location.pathname, page])
 
   return (
-    <div className="min-h-screen bg-semtex-bg text-semtex-ink">
-      <Navbar />
-      
-      <main id="main-content" className="relative">
-        <AnimatePresence mode="wait" initial={false}>
-          <motion.div
-            key={location.pathname}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ 
-              duration: 0.3, 
-              ease: [0.22, 1, 0.36, 1] 
-            }}
-          >
-            <Routes location={location}>
-              <Route path="/" element={<Home />} />
-              <Route path="/products" element={<Products />} />
-              <Route path="/products/lms" element={<LMS />} />
-              <Route path="/products/automation/workflows" element={<Workflows />} />
-              <Route path="/products/automation/ocr" element={<OCR />} />
-              <Route path="/products/automation/integrations" element={<Integrations />} />
-              <Route path="/products/ai/chatbots" element={<Chatbots />} />
-              <Route path="/products/ai/docai" element={<DocAI />} />
-              <Route path="/products/analytics" element={<Analytics />} />
-              <Route path="/solutions" element={<Solutions />} />
-              <Route path="/pricing" element={<Pricing />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/careers" element={<Careers />} />
-              <Route path="/blog" element={<Blog />} />
-              <Route path="/contact" element={<Contact />} />
-              
-              {/* 404 fallback */}
-              <Route 
-                path="*" 
-                element={
-                  <div className="min-h-screen flex items-center justify-center">
-                    <div className="text-center">
-                      <h1 className="text-display-lg mb-4">404</h1>
-                      <p className="text-body-lg mb-8">Page not found</p>
-                      <a 
-                        href="/" 
-                        className="btn-primary"
-                      >
-                        Go Home
-                      </a>
+    <ToastProvider>
+      <div className="min-h-screen bg-semtex-bg text-semtex-ink">
+        <Navbar />
+        
+        <main id="main-content" className="relative">
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.div
+              key={location.pathname}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ 
+                duration: 0.3, 
+                ease: [0.22, 1, 0.36, 1] 
+              }}
+            >
+              <Routes location={location}>
+                <Route path="/" element={<Home />} />
+                <Route path="/products" element={<Products />} />
+                <Route path="/products/lms" element={<LMS />} />
+                <Route path="/products/automation/workflows" element={<Workflows />} />
+                <Route path="/products/automation/ocr" element={<OCR />} />
+                <Route path="/products/automation/integrations" element={<Integrations />} />
+                <Route path="/products/ai/chatbots" element={<Chatbots />} />
+                <Route path="/products/ai/docai" element={<DocAI />} />
+                <Route path="/products/analytics" element={<Analytics />} />
+                <Route path="/solutions" element={<Solutions />} />
+                <Route path="/pricing" element={<Pricing />} />
+                <Route path="/about" element={<About />} />
+                <Route path="/careers" element={<Careers />} />
+                <Route path="/blog" element={<Blog />} />
+                <Route path="/contact" element={<Contact />} />
+                 <Route path="/privacy" element={<Privacy />} />
+                  <Route path="/terms" element={<Terms />} />
+                
+                {/* 404 fallback */}
+                <Route 
+                  path="*" 
+                  element={
+                    <div className="min-h-screen flex items-center justify-center">
+                      <div className="text-center">
+                        <h1 className="text-display-lg mb-4">404</h1>
+                        <p className="text-body-lg mb-8">Page not found</p>
+                        <a 
+                          href="/" 
+                          className="btn-primary"
+                        >
+                          Go Home
+                        </a>
+                      </div>
                     </div>
-                  </div>
-                }
-              />
-            </Routes>
-          </motion.div>
-        </AnimatePresence>
-      </main>
+                  }
+                />
+              </Routes>
+            </motion.div>
+          </AnimatePresence>
+        </main>
 
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </ToastProvider>
   )
 }
 

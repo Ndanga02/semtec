@@ -73,13 +73,11 @@ const Contact = () => {
       console.log('Contact form submission:', data)
       contactSubmit(data.interest)
       
-  addToast({
-  ...toast.success(
-    'Message sent successfully!',
-    'We\'ll get back to you within 24 hours.'
-  ),
-  description: 'We\'ll get back to you within 24 hours.' 
-})
+      addToast(toast.success(
+        'Message sent successfully!',
+        'We\'ll get back to you within 24 hours.'
+      ))
+      
       setIsSubmitted(true)
       reset()
     } catch (error) {
@@ -240,30 +238,30 @@ const Contact = () => {
               return (
                 <Card key={index} className="p-6">
                   <div className="flex items-start space-x-4">
-                    <div className="p-3 bg-semtex-ink/10 rounded-xl">
-                      <Icon className="h-6 w-6 text-semtex-ink" />
+                    <div className="p-3 bg-blue-50 rounded-xl">
+                      <info.icon className="h-6 w-6 text-blue-600" />
                     </div>
                     <div className="flex-1">
-                      <h3 className="font-semibold text-semtex-ink mb-1">
+                      <h3 className="font-semibold text-semtex-muted-ink mb-1">
                         {info.title}
                       </h3>
-                      <p className="text-sm text-semtex-muted-ink mb-2">
+                      <p className="text-sm text-gray-600 mb-2">
                         {info.description}
                       </p>
                       {info.link ? (
                         <a
                           href={info.link}
-                          className="font-medium text-semtex-ink hover:text-semtex-muted-ink transition-colors focus-ring rounded"
+                          className="font-medium text-semtex-muted-ink hover:text-gray-700 transition-colors focus-ring rounded"
                         >
                           {info.content}
                         </a>
                       ) : (
-                        <p className="font-medium text-semtex-ink">
+                        <p className="font-medium text-semtex-muted-ink">
                           {info.content}
                         </p>
                       )}
                       {info.subtitle && (
-                        <p className="text-sm text-semtex-muted-ink/70 mt-1">
+                        <p className="text-sm text-gray-500 mt-1">
                           {info.subtitle}
                         </p>
                       )}

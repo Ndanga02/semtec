@@ -1,4 +1,12 @@
-import React from 'react';
+import { useState, useEffect } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
+import { motion, AnimatePresence } from 'framer-motion'
+import { Menu, X } from 'lucide-react'
+import { cn } from '@/lib/cn'
+import { useAnalytics } from '@/lib/analytics'
+import MegaMenu from './MegaMenu'
+import MobileNav from './MobileNav'
+
 
 // Neural Network Logo Component
 const SemtexLogo = ({ size = 32, className = "" }) => {
@@ -53,8 +61,8 @@ const SemtexLogo = ({ size = 32, className = "" }) => {
       </svg>
       
       {/* Company Name */}
-      <span className="font-semibold text-xl hidden sm:block">
-        S E M T E C H
+      <span className="font-semibold text-lg hidden sm:block">
+        Semtex Technologies
       </span>
       <span className="font-semibold text-lg sm:hidden">
         Semtex
@@ -63,122 +71,158 @@ const SemtexLogo = ({ size = 32, className = "" }) => {
   );
 };
 
-// Updated Navbar Component with Neural Network Logo
 const Navbar = () => {
-  const [isScrolled, setIsScrolled] = React.useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = React.useState(false);
-  const [isProductsHovered, setIsProductsHovered] = React.useState(false);
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+  const [isProductsHovered, setIsProductsHovered] = useState(false)
+  const navigate = useNavigate()
+  const { buttonClick } = useAnalytics()
 
   // Handle scroll effect
-  React.useEffect(() => {
+  useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
+      setIsScrolled(window.scrollY > 20)
+    }
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  // Handle demo CTA click
+  const handleDemoClick = () => {
+    buttonClick('get_demo', 'navbar')
+    navigate('/contact?type=demo')
+  }
+
+  // Handle mobile menu toggle
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen)
+  }
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setIsMobileMenuOpen(false)
+  }, [navigate])
 
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        isScrolled 
-          ? 'bg-white/80 backdrop-blur-md border-b border-gray-200' 
-          : 'bg-transparent'
-      }`}
-    >
-      <nav className="container mx-auto px-4" role="navigation" aria-label="Main navigation">
-        <div className="flex items-center justify-between h-16 lg:h-20">
-          
-          {/* Logo with Neural Network */}
+    <>
+      <header 
+        className={cn(
+          'fixed top-0 left-0 right-0 z-50 transition-all duration-300',
+          isScrolled 
+            ? 'bg-semtex-bg/80 backdrop-blur-md border-b border-semtex-hairline' 
+            : 'bg-transparent'
+        )}
+      >
+        <nav className="container-semtex" role="navigation" aria-label="Main navigation">
+          <div className="flex items-center justify-between h-16 lg:h-20">
+            
+        {/* Logo with Neural Network */}
           <a 
             href="/" 
             className="flex items-center focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-lg p-1"
             aria-label="Semtex Technologies home"
           >
-            <SemtexLogo size={100} className="text-white hover:text-gray-300 transition-colors" />
+            <SemtexLogo size={50} className="text-white hover:text-gray-300 transition-colors" />
           </a>
 
-          {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center space-x-8">
-            
-            {/* Products */}
-            <div 
-              className="relative"
-              onMouseEnter={() => setIsProductsHovered(true)}
-              onMouseLeave={() => setIsProductsHovered(false)}
-            >
-              <a
-                href="/products"
-                className={`px-3 py-2 text-sm font-medium rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500 ${
-                  isProductsHovered ? 'text-black bg-gray-100' : 'text-gray-600 hover:text-black hover:bg-gray-50'
-                }`}
+            {/* Desktop Navigation */}
+            <div className="hidden lg:flex items-center space-x-8">
+              
+              {/* Products with MegaMenu */}
+              <div 
+                className="relative"
+                onMouseEnter={() => setIsProductsHovered(true)}
+                onMouseLeave={() => setIsProductsHovered(false)}
               >
-                Products
-              </a>
+                <Link
+                  to="/products"
+                  className={cn(
+                    'px-3 py-2 text-sm font-medium rounded-lg transition-colors focus-ring',
+                    'hover:text-semtex-ink hover:bg-semtex-hairline/50',
+                    isProductsHovered ? 'text-semtex-ink bg-semtex-hairline/50' : 'text-semtex-muted-ink'
+                  )}
+                  aria-expanded={isProductsHovered}
+                  aria-haspopup="true"
+                >
+                  Products
+                </Link>
+                
+                <AnimatePresence>
+                  {isProductsHovered && <MegaMenu />}
+                </AnimatePresence>
+              </div>
+
+              {/* Other Navigation Links */}
+              <Link
+                to="/solutions"
+                className="px-3 py-2 text-sm font-medium text-semtex-muted-ink hover:text-semtex-ink hover:bg-semtex-hairline/50 rounded-lg transition-colors focus-ring"
+              >
+                Solutions
+              </Link>
+
+              <Link
+                to="/pricing"
+                className="px-3 py-2 text-sm font-medium text-semtex-muted-ink hover:text-semtex-ink hover:bg-semtex-hairline/50 rounded-lg transition-colors focus-ring"
+              >
+                Pricing
+              </Link>
+
+              <Link
+                to="/about"
+                className="px-3 py-2 text-sm font-medium text-semtex-muted-ink hover:text-semtex-ink hover:bg-semtex-hairline/50 rounded-lg transition-colors focus-ring"
+              >
+                About
+              </Link>
+
+              <Link
+                to="/blog"
+                className="px-3 py-2 text-sm font-medium text-semtex-muted-ink hover:text-semtex-ink hover:bg-semtex-hairline/50 rounded-lg transition-colors focus-ring"
+              >
+                Blog
+              </Link>
             </div>
 
-            {/* Other Navigation Links */}
-            <a
-              href="/solutions"
-              className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-black hover:bg-gray-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              Solutions
-            </a>
+            {/* CTA Button + Mobile Menu Toggle */}
+            <div className="flex items-center space-x-4">
+              
+              {/* Demo CTA Button */}
+              <button
+                onClick={handleDemoClick}
+                className="btn-primary hidden sm:inline-flex"
+              >
+                Get a Demo
+              </button>
 
-            <a
-              href="/pricing"
-              className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-black hover:bg-gray-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              Pricing
-            </a>
-
-            <a
-              href="/about"
-              className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-black hover:bg-gray-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              About
-            </a>
-
-            <a
-              href="/blog"
-              className="px-3 py-2 text-sm font-medium text-gray-600 hover:text-black hover:bg-gray-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              Blog
-            </a>
+              {/* Mobile menu toggle */}
+              <button
+                onClick={toggleMobileMenu}
+                className="lg:hidden p-2 text-semtex-muted-ink hover:text-semtex-ink hover:bg-semtex-hairline/50 rounded-lg transition-colors focus-ring"
+                aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
+                aria-expanded={isMobileMenuOpen}
+              >
+                {isMobileMenuOpen ? (
+                  <X className="h-6 w-6" />
+                ) : (
+                  <Menu className="h-6 w-6" />
+                )}
+              </button>
+            </div>
           </div>
+        </nav>
+      </header>
 
-          {/* CTA Button + Mobile Menu Toggle */}
-          <div className="flex items-center space-x-4">
-            
-            {/* Demo CTA Button */}
-            <button
-              className="hidden sm:inline-flex px-4 py-2 bg-black text-white text-sm font-medium rounded-lg hover:bg-gray-800 transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-            >
-              Get a Demo
-            </button>
+      {/* Mobile Navigation */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <MobileNav 
+            isOpen={isMobileMenuOpen} 
+            onClose={() => setIsMobileMenuOpen(false)} 
+          />
+        )}
+      </AnimatePresence>
+    </>
+  )
+}
 
-            {/* Mobile menu toggle */}
-            <button
-              onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 text-gray-600 hover:text-black hover:bg-gray-50 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-blue-500"
-              aria-label={isMobileMenuOpen ? 'Close menu' : 'Open menu'}
-            >
-              {isMobileMenuOpen ? (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              ) : (
-                <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                </svg>
-              )}
-            </button>
-          </div>
-        </div>
-      </nav>
-    </header>
-  );
-};
-
-export default Navbar;
+export default Navbar
